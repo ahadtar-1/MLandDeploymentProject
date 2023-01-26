@@ -12,7 +12,7 @@ model = pickle.load(open('model.pkl', 'rb'))
 
 
 @app.route('/api', methods = ['GET', 'POST'])
-def make_prediction():
+def make_prediction()-> None:
     """
     The api function that generates a prediction from a model
 
@@ -29,9 +29,9 @@ def make_prediction():
 
     if request.method == 'POST':
         model = pickle.load(open('model.pkl', 'rb'))
-        json_ = request.json
-        query_df = pd.DataFrame(json_)
-        prediction = model.predict(query_df)
+        jsonData = request.json
+        queryDf = pd.DataFrame(jsonData)
+        prediction = model.predict(queryDf)
         return jsonify({"Prediction": list(prediction)})
 
 
